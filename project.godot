@@ -24,6 +24,10 @@ config/name="Greenwalker- Rpg"
 run/main_scene="res://Test Scenes/TestWorld.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Singletons/Global.gd"
+
 [display]
 
 window/size/width=256

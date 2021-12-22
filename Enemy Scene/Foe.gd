@@ -9,19 +9,18 @@ export (int, 1, 100) var attack
 
 var currentHealth : int
 
-onready var playerMenu : PopupMenu = $PlayerUI/PopupMenu
 onready var anim : AnimationPlayer = $AnimationPlayer
 
 func _enter_tree():
-	Global.player = self
+	Global.enemy = self
 	
 func _exit_tree():
-	Global.player = null
-
+	Global.enemy = null
+	
 func _ready():
-	playerMenu.popup()
+	scale.x = -1
 	set_health(maxHealth)
-
+	
 func set_health(value : int):
 	var previousValue = currentHealth
 # warning-ignore:narrowing_conversion
@@ -31,19 +30,10 @@ func set_health(value : int):
 	if currentHealth <= 0:
 		emit_signal("_health_depleted")
 
+func _attack():
+	yield(get_tree().create_timer(0.4), "timeout")
+	anim.play("Attack")
+
 func _return_to_idle():
 	anim.play("Idle")
 	emit_signal("_turn_done")
-
-func _on_PopupMenu_id_pressed(id):
-	
-	match id:
-		0:
-			anim.play("Attack")
-			playerMenu.hide()
-			pass
-			
-		1:
-			print("Defend")
-			playerMenu.hide()
-			pass

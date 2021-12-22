@@ -104,5 +104,6 @@ margin_top = -36.0
 margin_right = 22.0
 custom_fonts/font = SubResource( 4 )
 items = [ "ATTACK", null, 0, true, false, 0, 0, null, "", false, "DEFEND", null, 0, false, false, 1, 0, null, "", false ]
+hide_on_item_selection = false
 
 [connection signal="id_pressed" from="PlayerUI/PopupMenu" to="." method="_on_PopupMenu_id_pressed"]
