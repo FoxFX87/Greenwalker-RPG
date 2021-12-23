@@ -7,10 +7,11 @@ signal _turn_done()
 export (int, 1, 100) var maxHealth
 export (int, 1, 100) var attack
 
-var currentHealth : int
+var currentHealth : int setget set_health
 
 onready var playerMenu : PopupMenu = $PlayerUI/PopupMenu
 onready var anim : AnimationPlayer = $AnimationPlayer
+onready var healthLabel : Label = $PlayerUI/Label
 
 func _enter_tree():
 	Global.player = self
@@ -18,8 +19,10 @@ func _enter_tree():
 func _exit_tree():
 	Global.player = null
 
+func _start_turn():
+	playerMenu.show()
+
 func _ready():
-	playerMenu.popup()
 	set_health(maxHealth)
 
 func set_health(value : int):
@@ -34,6 +37,19 @@ func set_health(value : int):
 func _return_to_idle():
 	anim.play("Idle")
 	emit_signal("_turn_done")
+	
+func _recover_from_damage():
+	anim.play("Idle")
+	
+func _receive_damage(value : int):
+	anim.play("Hurt")
+	currentHealth -= value
+
+func _deal_damage():
+	if Global.enemy:
+		Global.enemy._receive_damage()
+		Global.enemy.currentHealth -= 1
+		print(Global.enemy.currentHealth)
 
 func _on_PopupMenu_id_pressed(id):
 	
@@ -46,4 +62,8 @@ func _on_PopupMenu_id_pressed(id):
 		1:
 			print("Defend")
 			playerMenu.hide()
+			emit_signal("_turn_done")
 			pass
+
+func _on_Hero__health_changed(_previousValue, _nextValue):
+	healthLabel.text = str(currentHealth)

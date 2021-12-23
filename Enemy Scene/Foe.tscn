@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/drone droid.png" type="Texture" id=1]
 [ext_resource path="res://Enemy Scene/Foe.gd" type="Script" id=2]
+[ext_resource path="res://Resources/Pixel.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="Animation" id=3]
 resource_name = "Attack"
@@ -25,11 +26,56 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1.4 ),
+"times": PoolRealArray( 0.9, 1.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "_deal_damage"
+}, {
+"args": [  ],
+"method": "_return_to_idle"
+} ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Hurt"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 31, 30 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, -17 ), Vector2( -2, -17 ), Vector2( 0, -17 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.3 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "_return_to_idle"
+"method": "_recover_from_hit"
 } ]
 }
 
@@ -64,9 +110,27 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 9 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -17 ) ]
+}
+
+[sub_resource type="DynamicFont" id=5]
+size = 6
+font_data = ExtResource( 3 )
 
 [node name="Foe" type="Node2D"]
 script = ExtResource( 2 )
+maxHealth = 5
+attack = 2
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -77,5 +141,21 @@ frame = 9
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
 anims/Attack = SubResource( 3 )
+anims/Hurt = SubResource( 4 )
 anims/Idle = SubResource( 1 )
 anims/RESET = SubResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -11.0
+margin_top = -74.0
+margin_right = 29.0
+margin_bottom = -60.0
+custom_fonts/font = SubResource( 5 )
+text = "10/10"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="_health_changed" from="." to="." method="_on_Foe__health_changed"]

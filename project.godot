@@ -9,13 +9,13 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Resource",
-"class": "BattleUnitStats",
+"base": "Node",
+"class": "BattlerStats",
 "language": "GDScript",
-"path": "res://Resources/BattleUnitStats.gd"
+"path": "res://Battlers/BaseBattler.gd"
 } ]
 _global_script_class_icons={
-"BattleUnitStats": ""
+"BattlerStats": ""
 }
 
 [application]

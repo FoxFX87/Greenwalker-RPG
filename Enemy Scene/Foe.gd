@@ -7,9 +7,10 @@ signal _turn_done()
 export (int, 1, 100) var maxHealth
 export (int, 1, 100) var attack
 
-var currentHealth : int
+var currentHealth : int setget set_health
 
 onready var anim : AnimationPlayer = $AnimationPlayer
+onready var label : Label = $Label
 
 func _enter_tree():
 	Global.enemy = self
@@ -18,7 +19,7 @@ func _exit_tree():
 	Global.enemy = null
 	
 func _ready():
-	scale.x = -1
+	$Sprite.scale.x = -1
 	set_health(maxHealth)
 	
 func set_health(value : int):
@@ -37,3 +38,18 @@ func _attack():
 func _return_to_idle():
 	anim.play("Idle")
 	emit_signal("_turn_done")
+
+func _deal_damage():
+	if Global.player:
+		Global.player._receive_damage(attack)
+		print("Player Health: ", Global.player.currentHealth)
+
+func _receive_damage():
+	anim.play("Hurt")
+
+func _recover_from_hit():
+	anim.play("Idle")
+
+func _on_Foe__health_changed(_previousValue, _nextValue):
+	label.text = str(currentHealth)
+	pass # Replace with function body.
