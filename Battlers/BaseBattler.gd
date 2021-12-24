@@ -4,12 +4,15 @@ class_name BattlerStats
 signal died()
 signal health_changed(value)
 
-export (float, 1, 100) var maxHealth
-export (float, 1, 100) var attackPower
+export (float, 1, 100, 1) var maxHealth
+export (float, 1, 100, 1) var attackPower
 
 var currentHealth : float setget set_health
 
 func _ready():
+	currentHealth = maxHealth
+
+func initialize():
 	currentHealth = maxHealth
 
 func set_health(value : float):

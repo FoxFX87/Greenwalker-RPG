@@ -1,17 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Battlers/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Battlers/Enemy.tscn" type="PackedScene" id=2]
 
 [node name="TestWorld" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 87, 94 )
 
-[node name="PopupMenu" parent="Player/PlayerUICanvasLayer" index="0"]
-visible = true
-margin_left = 57.0
-margin_top = 102.0
-margin_right = 101.0
-margin_bottom = 138.0
+[node name="Enemy" parent="." instance=ExtResource( 2 )]
+position = Vector2( 159, 94 )
 
 [editable path="Player"]
+[editable path="Player/PlayerUICanvasLayer/PlayerUI"]
