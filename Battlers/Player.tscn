@@ -28,11 +28,14 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1.1 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.3, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "test_return_turn"
+"method": "deal_damage"
+}, {
+"args": [  ],
+"method": "finish_turn"
 } ]
 }
 
@@ -144,6 +147,7 @@ attackPower = 3.0
 [node name="PlayerUICanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PlayerUI" parent="PlayerUICanvasLayer" instance=ExtResource( 2 )]
+visible = false
 
 [connection signal="health_changed" from="Stats" to="." method="_on_Stats_health_changed"]
 [connection signal="pressed" from="PlayerUICanvasLayer/PlayerUI/PanelContainer/HBoxContainer/AttackOne" to="." method="_on_AttackOne_pressed"]

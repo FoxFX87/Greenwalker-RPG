@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/drone droid.png" type="Texture" id=1]
 [ext_resource path="res://Battlers/Enemy.gd" type="Script" id=2]
@@ -31,11 +31,38 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "_deal_damage"
+"method": "deal_damage"
 }, {
 "args": [  ],
-"method": "_return_to_idle"
+"method": "finish_turn"
 } ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 32, 33, 34, 35, 36, 37, 38, 39, 40, 41 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/Label:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -76,7 +103,7 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "_recover_from_hit"
+"method": "return_to_idle"
 } ]
 }
 
@@ -123,6 +150,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 0, -17 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/Label:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource( 2 )
@@ -135,6 +174,7 @@ hframes = 42
 frame = 9
 
 [node name="Label" type="Label" parent="Sprite"]
+visible = false
 margin_left = 11.0
 margin_top = -71.0
 margin_right = 51.0
@@ -151,12 +191,14 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
 anims/Attack = SubResource( 1 )
+anims/Death = SubResource( 5 )
 anims/Hurt = SubResource( 2 )
 anims/Idle = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 
 [node name="Stats" parent="." instance=ExtResource( 3 )]
 maxHealth = 5.0
+attackPower = 2.0
 
 [connection signal="died" from="Stats" to="." method="_on_Stats_died"]
 [connection signal="health_changed" from="Stats" to="." method="_on_Stats_health_changed"]

@@ -7,9 +7,15 @@ onready var stats : BattlerStats = $Stats
 onready var menu : Control = $PlayerUICanvasLayer/PlayerUI
 onready var label : Label = $Sprite/Label
 
-var target
-
 func _ready():
+	stats.initialize()
+	Global.player = self
+	
+func _exit_tree():
+	Global.player = null
+
+func start_turn():
+	anim.play("Idle")
 	menu.show()
 
 func test_return_turn():
@@ -26,6 +32,11 @@ func return_to_idle():
 func finish_turn():
 	return_to_idle()
 	emit_signal("turn_done")
+
+func deal_damage():
+	if Global.enemy:
+		var _enemy = Global.enemy
+		_enemy.take_damage(stats.attackPower)
 
 func _on_AttackOne_pressed():
 	anim.play("Attack")
