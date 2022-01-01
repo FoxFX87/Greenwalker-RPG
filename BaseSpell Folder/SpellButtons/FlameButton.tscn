@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://BaseSpell Folder/SpellButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://BaseSpell Folder/BaseSpell.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+spellName = "Flame"
+AtkPwr = 500.0
+DefPwr = 200.0
+
+[node name="FlameButton" instance=ExtResource( 1 )]
+spellData = SubResource( 1 )

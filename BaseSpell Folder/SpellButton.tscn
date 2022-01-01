@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Resources/base_dynamicfont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://BaseSpell Folder/BaseSpell.gd" type="Script" id=2]
+[ext_resource path="res://BaseSpell Folder/SpellButton.gd" type="Script" id=3]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+spellName = "Chill"
+AtkPwr = 200.0
+DefPwr = 400.0
+
+[node name="SpellButton" type="Button"]
+margin_right = 73.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 1 )
+text = "TEST"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+spellData = SubResource( 1 )
+
+[node name="ATKLabel" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DEFLabel" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0.811765, 1, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "100"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

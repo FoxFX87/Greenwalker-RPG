@@ -10,11 +10,23 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "BaseMage",
+"language": "GDScript",
+"path": "res://BaseMage Folder/BaseMage.gd"
+}, {
+"base": "Resource",
+"class": "BaseSpell",
+"language": "GDScript",
+"path": "res://BaseSpell Folder/BaseSpell.gd"
+}, {
+"base": "Node",
 "class": "BattlerStats",
 "language": "GDScript",
 "path": "res://Battlers/BaseBattler.gd"
 } ]
 _global_script_class_icons={
+"BaseMage": "",
+"BaseSpell": "",
 "BattlerStats": ""
 }
 

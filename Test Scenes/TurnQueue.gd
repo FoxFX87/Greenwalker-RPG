@@ -8,7 +8,7 @@ func _ready():
 	enemy = Global.enemy
 	
 	yield(get_tree().create_timer(0.1), "timeout")
-	_enemy_turn_activate()
+	_player_turn_activate()
 	
 func _player_turn_activate():
 	player.start_turn()
